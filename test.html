@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onnie Roasted Seaweed </title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome (ไอคอน) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="bg-white text-gray-800">
+
+<section class="bg-gradient-to-r from-green-600 to-green-400 text-white text-center p-12">
+  
+  <!-- LOGO -->
+  <img src="onnie-seaweed.jpg" 
+       alt="logo"
+       class="w-56 md:w-56 mx-auto mb-4 drop-shadow-xl">
+
+  <h1 class="text-4xl md:text-5xl font-bold mb-4">
+    Onnie Roasted Seaweed
+  </h1>
+
+  <p class="text-lg mb-6">
+    สาหร่ายเกาหลีแท้ กรอบอร่อย มี อย.
+  </p>
+
+  <button onclick="scrollToOrder()" 
+    class="bg-white text-green-600 px-6 py-3 rounded-xl text-lg font-semibold shadow hover:scale-105 transition">
+    🛒 สั่งซื้อเลย
+  </button>
+
+</section>
+
+  <!-- FEATURES -->
+  <section class="p-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div class="bg-green-50 p-4 rounded-xl shadow">✅ นำเข้าแท้ 100%</div>
+    <div class="bg-green-50 p-4 rounded-xl shadow">✅ ไม่ใส่สารกันเสีย</div>
+    <div class="bg-green-50 p-4 rounded-xl shadow">✅ แคลอรี่ต่ำ</div>
+    <div class="bg-green-50 p-4 rounded-xl shadow">✅ กรอบ อร่อย</div>
+  </section>
+
+<section class="bg-gray-100 p-10 text-center">
+  <h2 class="text-2xl font-bold mb-6">สินค้าของเรา</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+    <!-- รูปที่ 1 -->
+    <div class="bg-white p-4 rounded-xl shadow">
+      <img src="https://via.placeholder.com/300x200?text=Seaweed+1" 
+           class="w-full h-48 object-cover rounded-lg mb-3">
+      <p class="text-sm">สาหร่ายอบกรอบ รสออริจินอล</p>
+    </div>
+
+    <!-- รูปที่ 2 -->
+    <div class="bg-white p-4 rounded-xl shadow">
+      <img src="https://via.placeholder.com/300x200?text=Seaweed+2" 
+           class="w-full h-48 object-cover rounded-lg mb-3">
+      <p class="text-sm">สาหร่ายเกาหลีแท้ คุณภาพพรีเมียม</p>
+    </div>
+
+    <!-- รูปที่ 3 -->
+    <div class="bg-white p-4 rounded-xl shadow">
+      <img src="https://via.placeholder.com/300x200?text=Seaweed+3" 
+           class="w-full h-48 object-cover rounded-lg mb-3">
+      <p class="text-sm">กรอบ อร่อย กินเพลิน</p>
+    </div>
+
+  </div>
+</section>
+
+  <!-- PRODUCT -->
+  <section class="p-10 text-center">
+    <h2 class="text-2xl font-bold mb-4">ราคาสินค้า</h2>
+    <p class="text-lg">1 ซอง = 59 บาท</p>
+    <p class="text-green-600 text-xl font-bold">3 ซอง = 150 บาท 🔥</p>
+    <button onclick="scrollToOrder()" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg">
+      เลือกแพ็กนี้
+    </button>
+  </section>
+
+  <!-- ORDER FORM -->
+  <section id="order" class="bg-green-50 p-10">
+    <h2 class="text-2xl font-bold text-center mb-6">สั่งซื้อสินค้า</h2>
+
+    <form class="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
+      <input type="text" placeholder="ชื่อ" class="w-full mb-3 p-3 border rounded">
+      <input type="tel" placeholder="เบอร์โทร" class="w-full mb-3 p-3 border rounded">
+      <textarea placeholder="ที่อยู่จัดส่ง" class="w-full mb-3 p-3 border rounded"></textarea>
+
+<div class="mb-4 text-center">
+  <label class="block mb-2 font-semibold">จำนวนสินค้า (ห่อละ 50 บาท)</label>
+
+  <div class="flex items-center justify-center gap-4">
+
+    <button type="button" onclick="decreaseQty()" 
+      class="bg-gray-200 px-4 py-2 rounded-lg text-xl">-</button>
+
+    <span id="qty" class="text-xl font-bold w-10 text-center">1</span>
+
+    <button type="button" onclick="increaseQty()" 
+      class="bg-gray-200 px-4 py-2 rounded-lg text-xl">+</button>
+
+  </div>
+
+  <!-- ราคาสินค้า -->
+  <p class="mt-3 text-green-600 font-semibold">
+    ราคาสินค้า: <span id="productPrice">50</span> บาท
+  </p>
+
+  <!-- ค่าส่ง -->
+  <p class="text-gray-600">
+    ค่าส่ง: 50 บาท
+  </p>
+
+  <!-- ราคารวม -->
+  <p class="mt-2 text-xl font-bold text-green-700">
+    รวมทั้งหมด: <span id="totalPrice">100</span> บาท
+  </p>
+</div>
+
+<button type="button" onclick="sendToLine()" 
+  class="w-full bg-green-600 text-white py-3 rounded-xl text-lg">
+  🛒 สั่งซื้อผ่าน LINE
+</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-green-700 text-white p-10 mt-10">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+
+      <!-- BRAND -->
+      <div>
+        <h3 class="text-xl font-bold mb-3">Onnie Roasted Seaweed </h3>
+        <p>สาหร่ายเกาหลีนำเข้าคุณภาพสูง กรอบ อร่อย ดีต่อสุขภาพ มีอย.</p>
+      </div>
+
+      <!-- CONTACT -->
+      <div>
+        <h3 class="text-xl font-bold mb-3">Contact Us</h3>
+
+        <p class="flex items-center gap-2">📞 080-000-0000</p>
+        <p class="flex items-center gap-2">💬 LINE: @yourline</p>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/worapitcha.park.7?locale=th_TH" target="_blank"
+           class="flex items-center gap-2 mt-2 hover:underline">
+          <i class="fa-brands fa-facebook text-blue-300 text-xl"></i>
+          <span>ออนนี่ต๊อกบกกี อาหารเกาหลี</span>
+        </a>
+
+        <p class="flex items-center gap-2 mt-2">📧 email@email.com</p>
+      </div>
+
+      <!-- DELIVERY SERVICE -->
+      <div>
+        <h3 class="text-xl font-bold mb-3">Delivery Service</h3>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-white p-2 rounded-lg">
+            <img src="kex.jpg" class="w-full">
+          </div>
+          <div class="bg-white p-2 rounded-lg">
+            <img src="flash.jpg" class="w-full">
+          </div>
+          <div class="bg-white p-2 rounded-lg">
+            <img src="jT.png" class="w-full">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <p class="text-center text-sm mt-8 opacity-80">
+      © 2026 Onnie Roasted Seaweed
+    </p>
+  </footer>
+
+<script>
+  function scrollToOrder() {
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  let qty = 1;
+  const pricePerItem = 50;
+  const shipping = 50;
+
+  function increaseQty() {
+    qty++;
+    updateUI();
+  }
+
+  function decreaseQty() {
+    if (qty > 1) {
+      qty--;
+      updateUI();
+    }
+  }
+
+  function updateUI() {
+    const productTotal = qty * pricePerItem;
+    const total = productTotal + shipping;
+
+    document.getElementById('qty').innerText = qty;
+    document.getElementById('productPrice').innerText = productTotal;
+    document.getElementById('totalPrice').innerText = total;
+  }
+  function sendToLine() {
+
+    const name = document.querySelector('input[placeholder="ชื่อ"]').value;
+
+    const phone = document.querySelector('input[placeholder="เบอร์โทร"]').value;
+
+    const address = document.querySelector('textarea').value;
+
+
+
+    const productTotal = qty * pricePerItem;
+
+    const total = productTotal + shipping;
+
+
+
+    const message = `สั่งซื้อสินค้า Onnie Seaweed 💚
+
+ชื่อ: ${name}
+
+เบอร์โทร: ${phone}
+
+ที่อยู่: ${address}
+
+
+
+จำนวน: ${qty} ซอง
+
+ราคาสินค้า: ${productTotal} บาท
+
+ค่าส่ง: 50 บาท
+
+รวมทั้งหมด: ${total} บาท`;
+
+
+
+const lineID = "chosishop";
+
+const url = `https://line.me/ti/p/~${lineID}`;
+
+    window.open(url, '_blank');
+
+  }
+</script>
+
+</body>
+</html>
