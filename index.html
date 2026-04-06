@@ -211,14 +211,20 @@
     document.getElementById('productPrice').innerText = productTotal;
     document.getElementById('totalPrice').innerText = total;
   }
-  function sendToLine() {
+function sendToLine() {
     const name = document.querySelector('input[placeholder="ชื่อ"]').value;
     const phone = document.querySelector('input[placeholder="เบอร์โทร"]').value;
     const address = document.querySelector('textarea').value;
 
+    if (!name || !phone || !address) {
+        alert("กรุณากรอกข้อมูลให้ครบถ้วนก่อนสั่งซื้อนะคะ");
+        return;
+    }
+
     const productTotal = qty * pricePerItem;
     const total = productTotal + shipping;
 
+    // สร้างข้อความที่จะส่ง
     const message = `สั่งซื้อสินค้า Onnie Seaweed 💚
 ชื่อ: ${name}
 เบอร์โทร: ${phone}
@@ -228,10 +234,6 @@
 ราคาสินค้า: ${productTotal} บาท
 ค่าส่ง: 50 บาท
 รวมทั้งหมด: ${total} บาท`;
-
-const lineID = "chosishop";
-const url = `https://line.me/ti/p/~${lineID}`;
-    window.open(url, '_blank');
   }
 </script>
 
