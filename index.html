@@ -51,23 +51,23 @@
 
     <!-- รูปที่ 1 -->
     <div class="bg-white p-4 rounded-xl shadow">
-      <img src="https://via.placeholder.com/300x200?text=Seaweed+1" 
-           class="w-full h-48 object-cover rounded-lg mb-3">
+      <img src="close-up-seaweed-snacks.jpg" 
+            class="w-full h-auto rounded-lg mb-3">
       <p class="text-sm">สาหร่ายอบกรอบ รสออริจินอล</p>
     </div>
 
     <!-- รูปที่ 2 -->
     <div class="bg-white p-4 rounded-xl shadow">
-      <img src="https://via.placeholder.com/300x200?text=Seaweed+2" 
-           class="w-full h-48 object-cover rounded-lg mb-3">
-      <p class="text-sm">สาหร่ายเกาหลีแท้ คุณภาพพรีเมียม</p>
+      <img src="onnielogoSeaweed.jpg" 
+           class="w-full h-auto rounded-lg mb-3">
+      <p class="text-sm">กรอบ อร่อย กินเพลิน</p>
     </div>
 
     <!-- รูปที่ 3 -->
     <div class="bg-white p-4 rounded-xl shadow">
-      <img src="https://via.placeholder.com/300x200?text=Seaweed+3" 
-           class="w-full h-48 object-cover rounded-lg mb-3">
-      <p class="text-sm">กรอบ อร่อย กินเพลิน</p>
+      <img src="close-up-seaweed-snacks.jpg" 
+            class="w-full h-48 object-cover rounded-lg mb-3">
+      <p class="text-sm">ผ่านมาตรฐานอย.</p>
     </div>
 
   </div>
@@ -88,9 +88,9 @@
     <h2 class="text-2xl font-bold text-center mb-6">สั่งซื้อสินค้า</h2>
 
     <form class="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
-      <input type="text" placeholder="ชื่อ" class="w-full mb-3 p-3 border rounded">
-      <input type="tel" placeholder="เบอร์โทร" class="w-full mb-3 p-3 border rounded">
-      <textarea placeholder="ที่อยู่จัดส่ง" class="w-full mb-3 p-3 border rounded"></textarea>
+      <input id="name" type="text" placeholder="ชื่อ" class="w-full mb-3 p-3 border rounded">
+      <input id="phone" type="tel" placeholder="เบอร์โทร" class="w-full mb-3 p-3 border rounded">
+      <textarea id="address" placeholder="ที่อยู่จัดส่ง" class="w-full mb-3 p-3 border rounded"></textarea>
 
 <div class="mb-4 text-center">
   <label class="block mb-2 font-semibold">จำนวนสินค้า (ห่อละ 50 บาท)</label>
@@ -125,7 +125,7 @@
 
 <button type="button" onclick="sendToLine()" 
   class="w-full bg-green-600 text-white py-3 rounded-xl text-lg">
-  🛒 สั่งซื้อผ่าน LINE
+  🛒 ยืนยันคำสั่งซื้อผ่าน LINE
 </button>
     </form>
   </section>
@@ -137,14 +137,14 @@
       <!-- BRAND -->
       <div>
         <h3 class="text-xl font-bold mb-3">Onnie Roasted Seaweed </h3>
-        <p>สาหร่ายเกาหลีนำเข้าคุณภาพสูง กรอบ อร่อย ดีต่อสุขภาพ มีอย.</p>
+        <p>สาหร่ายเกาหลีนำเข้า คัดสรรคุณภาพระดับพรีเมียม กรอบอร่อย พร้อมคุณประโยชน์ต่อสุขภาพ ได้รับมาตรฐาน อย.</p>
       </div>
 
       <!-- CONTACT -->
       <div>
         <h3 class="text-xl font-bold mb-3">Contact Us</h3>
 
-        <p class="flex items-center gap-2">📞 080-000-0000</p>
+        <p class="flex items-center gap-2">📞 082-2641428</p>
         <p class="flex items-center gap-2">💬 LINE: @yourline</p>
 
         <!-- Facebook -->
@@ -213,47 +213,44 @@
   }
   function sendToLine() {
 
-    const name = document.querySelector('input[placeholder="ชื่อ"]').value;
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
 
-    const phone = document.querySelector('input[placeholder="เบอร์โทร"]').value;
+  // ✅ เช็คข้อมูลก่อน
+  if (name === "" || phone === "" || address === "") {
+    alert("กรุณากรอกข้อมูลให้ครบถ้วนก่อนสั่งซื้อ");
+    return;
+  }
 
-    const address = document.querySelector('textarea').value;
+  // ✅ เช็คเบอร์ (เพิ่มความโปร)
+  if (!/^0[0-9]{9}$/.test(phone)) {
+    alert("กรุณากรอกเบอร์โทรให้ถูกต้อง");
+    return;
+  }
 
+  const productTotal = qty * pricePerItem;
+  const total = productTotal + shipping;
 
-
-    const productTotal = qty * pricePerItem;
-
-    const total = productTotal + shipping;
-
-
-
-    const message = `สั่งซื้อสินค้า Onnie Seaweed 💚
-
+  const message = `สั่งซื้อสินค้า Onnie Seaweed 💚
 ชื่อ: ${name}
-
 เบอร์โทร: ${phone}
-
 ที่อยู่: ${address}
 
-
-
 จำนวน: ${qty} ซอง
-
 ราคาสินค้า: ${productTotal} บาท
-
-ค่าส่ง: 50 บาท
-
+ค่าส่ง: ${shipping} บาท
 รวมทั้งหมด: ${total} บาท`;
 
+  const lineID = "chosishop";
 
+  const encodedMessage = encodeURIComponent(message);
 
-const lineID = "chosishop";
+  // ✅ ลิงก์ที่ส่งข้อความได้จริง
+  const url = `https://line.me/R/msg/text/?${encodedMessage}`;
 
-const url = `https://line.me/ti/p/~${lineID}`;
-
-    window.open(url, '_blank');
-
-  }
+  window.open(url, '_blank');
+}
 </script>
 
 </body>
